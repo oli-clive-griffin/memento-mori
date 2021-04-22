@@ -1,20 +1,16 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 from bs4 import BeautifulSoup
 import requests
 from urllib.request import urlopen
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    print("Looking")
     url = "https://deaths.dompost.co.nz/obituaries/dominion-post-nz/"
-    response = requests.get(url)
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+    response = requests.get(url, headers=headers)
+    print(response)
     soup = BeautifulSoup(response.text, "html.parser")
     for li in soup.findAll('ul', {'class': "recentObitsList"}):
         name = li.text.replace("(Death Notice)", "")
         name = name.replace(", ", ",")
         print(name)
 
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
